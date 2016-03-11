@@ -1,0 +1,45 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    
+    function setTextinJS(text){
+        var x = document.getElementById("content").innerHTML;
+        document.getElementById("content").innerHTML=x + "<br>"+ text
+   }
+    
+    
+    function send2ios(text){
+          window.webkit.messageHandlers.interOp.postMessage(text)
+    }
+    
+  </script>
+  
+</head>
+<body>
+    
+<br><br>
+
+<h1>Demo: WebView JS to Native </h1>
+<p>This is a simple Html file.</p>
+
+<br>
+1. Send some data to iOs from JS <br>
+2. and get back Data from iOS
+<br><br>
+
+<input value="send to ios" type="button" onclick="send2ios('from JS')"/>
+
+
+
+<!--
+<br>
+<input type="button" value="test" onclick="setTextinJS('test')"/>
+-->
+
+
+
+<div id="content"></div>
+
+</body>
+</html>
