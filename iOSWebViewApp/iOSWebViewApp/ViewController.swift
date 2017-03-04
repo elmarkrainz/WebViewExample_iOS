@@ -27,25 +27,25 @@ class ViewController: UIViewController, WKScriptMessageHandler {
        
       
         // ---  access local html file in project root folder
-        let url = NSBundle.mainBundle().URLForResource("index", withExtension:"html")
-        let request = NSURLRequest(URL: url!)
+        let url = Bundle.main.url(forResource: "index", withExtension:"html")
+        let request = URLRequest(url: url!)
         
         
         //  create new Webview
         let theConfiguration = WKWebViewConfiguration()
-        theConfiguration.userContentController.addScriptMessageHandler(self,
+        theConfiguration.userContentController.add(self,
             name: "interOp")
         
         theWebView = WKWebView(frame: self.view.frame,
             configuration: theConfiguration)
-        theWebView!.loadRequest(request)
+        theWebView!.load(request)
         self.view.addSubview(theWebView!)
 
     
     }
 
     // --- Callback WKScriptMessageHandler
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
         // ---  get the messeg from js
         // TODO ... anything you get from JS can be handled now in iOS
@@ -61,7 +61,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         
         
         // e.g. send device ID
-        let devID = "Device id:" + UIDevice.currentDevice().identifierForVendor!.UUIDString
+        let devID = "Device id:" + UIDevice.current.identifierForVendor!.uuidString
         print (devID)
         theWebView!.evaluateJavaScript(" setTextinJS ('from Swift \(devID)')", completionHandler: nil)
         
